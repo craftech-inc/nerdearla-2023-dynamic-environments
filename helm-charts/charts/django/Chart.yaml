@@ -1,0 +1,10 @@
+apiVersion: v2
+name: django
+version: 0.0.1
+Appversion: latest
+icon: https://static.djangoproject.com/img/icon-touch.e4872c4da341.png
+keywords:
+  - django
+  - wsgi
+description: >
+    This Chart is to deploy an extendible architecture of a Django application over K8s using only wsgi container.

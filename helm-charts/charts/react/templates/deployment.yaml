@@ -1,0 +1,57 @@
+{{- if .Values.frontend.enabled -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "react.fullname" . }}-frontend
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/name: {{ template "react.fullname" . }}-frontend
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/component: frontend
+spec:
+  replicas: {{ .Values.frontend.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ template "react.fullname" . }}-frontend
+      app.kubernetes.io/instance: {{ .Release.Name }}
+      app.kubernetes.io/managed-by: {{ .Release.Service }}
+      app.kubernetes.io/component: frontend
+  template:
+    metadata:
+      labels:
+        helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+        app.kubernetes.io/name: {{ template "react.fullname" . }}-frontend
+        app.kubernetes.io/instance: {{ .Release.Name }}
+        app.kubernetes.io/managed-by: {{ .Release.Service }}
+        app.kubernetes.io/version: {{ .Chart.AppVersion }}
+        app.kubernetes.io/component: frontend
+    spec:
+      {{ template "frontend.affinity" . }}
+      {{ template "frontend.tolerations" . }}
+      {{ template "frontend.nodeselector" . }}
+      terminationGracePeriodSeconds: {{ .Values.frontend.terminationGracePeriodSeconds | default 300 }}
+      containers:
+        - name: django
+          image: {{ .Values.global.image.repository }}:{{ .Values.global.image.tag }}
+          imagePullPolicy: {{ .Values.global.image.pullPolicy }}
+          command: ["/bin/sh", "-c"]
+          args:
+            - {{ .Values.frontend.command | default "npm run start" }};
+          {{ if .Values.frontend.readinessProbe.enabled }}
+          readinessProbe:
+            tcpSocket:
+              port: {{ .Values.frontend.service.port }}
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
+          {{ end }}
+          {{ template "frontend.resources" . }}
+          env:
+          {{- include "frontend.extraEnvironmentVars" .Values.frontend | nindent 12 }}
+          {{- include "frontend.extraSecretEnvironmentVars" .Values.frontend | nindent 12 }}
+         {{ template "frontend.mounts" . }}
+         {{ template "frontend.volumes" . }}
+{{- end }}

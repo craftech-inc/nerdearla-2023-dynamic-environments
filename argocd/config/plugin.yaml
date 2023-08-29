@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: helm-plugin-cfg
+  namespace: argocd
+data:
+  plugin.yaml: |
+    apiVersion: argoproj.io/v1alpha1
+    kind: ConfigManagementPlugin
+    metadata:
+      name: helm-plugin
+    spec:
+      version: v1.0
+      init:
+        command: ["/bin/sh", "-c"]
+        args: ['if [ "$ARGOCD_ENV_USE_OCI" = "true" ];then aws ecr get-login-password --region us-east-1 | helm registry login --username AWS --password-stdin ${ARGOCD_ENV_AWS_ECR_REGISTRY_URL};else helm repo add $ARGOCD_ENV_CHART_REPOSITORY $ARGOCD_ENV_CHART_REPOSITORY_URL && helm repo update;fi']
+      generate:
+        command: ["/bin/sh", "-c"]
+        args: ['if [ "$ARGOCD_ENV_USE_OCI" = "true" ];then helm template ${ARGOCD_ENV_PROJECT_NAME} oci://${ARGOCD_ENV_AWS_ECR_REGISTRY_URL}/${ARGOCD_ENV_CHART_NAME} --version ${ARGOCD_ENV_CHART_VERSION} --include-crds -n ${ARGOCD_APP_NAMESPACE} --values ${ARGOCD_ENV_VALUES};else helm template $ARGOCD_ENV_PROJECT_NAME $ARGOCD_ENV_CHART_REPOSITORY/$ARGOCD_ENV_CHART_NAME --include-crds -n $ARGOCD_APP_NAMESPACE --values $ARGOCD_ENV_VALUES --version $ARGOCD_ENV_CHART_VERSION;fi']
+      discover:
+        fileName: "values*.yaml"

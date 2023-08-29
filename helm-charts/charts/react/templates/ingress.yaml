@@ -1,0 +1,41 @@
+{{- if and .Values.frontend.enabled .Values.frontend.ingress.enabled -}}
+{{- $serviceName := include "react.fullname" . -}}
+{{- $servicePort := .Values.frontend.service.port -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ template "react.fullname" . }}-frontend
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/name: {{ template "react.fullname" . }}-frontend
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    {{- with .Values.frontend.ingress.labels }}
+      {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- template "frontend.ingress.annotations" . }}
+spec:
+{{- if .Values.frontend.ingress.tls.enabled }}
+  tls:
+  {{- range .Values.frontend.ingress.hosts }}
+    - hosts:
+        - {{ .host | quote }}
+  {{- end }}
+{{- end }}
+  rules:
+  {{- range .Values.frontend.ingress.hosts }}
+    - host: {{ .host | quote }}
+      http:
+        paths:
+        {{- range $key, $val := (.paths | default (list "/")) }}
+          - path: {{ $val.path }}
+            pathType: {{ $val.pathType | default "Prefix" }}
+            backend:
+              service:
+                name: {{ $serviceName }}-frontend-svc
+                port: 
+                  number: {{ $servicePort }}
+        {{- end }}
+  {{- end }}
+{{- end }}

@@ -1,0 +1,23 @@
+{{- if and .Values.frontend.enabled .Values.frontend.service.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "react.fullname" . }}-frontend-svc
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/name: {{ template "react.fullname" . }}-frontend
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/component: frontend
+spec:
+  ports:
+  - port: {{ .Values.frontend.service.port }}
+    targetPort: {{ .Values.frontend.service.targetPort }}
+  selector:
+    app.kubernetes.io/name: {{ template "react.fullname" . }}-frontend
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/component: frontend
+{{- end }}

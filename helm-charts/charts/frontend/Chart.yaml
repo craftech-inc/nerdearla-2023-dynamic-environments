@@ -1,0 +1,13 @@
+apiVersion: v2
+name: frontend-demo
+version: 0.0.1
+Appversion: latest
+keywords:
+  - react
+  - wsgi
+description: >
+  This Chart is to deploy frontend/api proyect based on React Helm chart.
+dependencies:
+  - name: react
+    version: 0.0.1
+    repository: 'file://../react'

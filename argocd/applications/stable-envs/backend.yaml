@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app-backend
+  namespace: argocd
+spec:
+  destination:
+    name: in-cluster
+    namespace: app-backend
+  project: default
+  revisionHistoryLimit: 10
+  source:
+    path: argocd/applications/values
+    plugin:
+      env:
+      - name: USE_OCI
+        value: "false"
+      - name: VALUES
+        value: "backend-values.yaml"
+      - name: CHART_VERSION
+        value: 0.1.0
+      - name: CHART_REPOSITORY_URL
+        value: https://helm.github.io/examples
+      - name: CHART_REPOSITORY
+        value: examples
+      - name: CHART_NAME
+        value: hello-world
+      - name: PROJECT_NAME
+        value: app-backend
+    repoURL: https://github.com/craftech-inc/nerdearla-2023-dynamic-environments.git
+    targetRevision: main
+  syncPolicy:
+    automated:
+      selfHeal: false
+    syncOptions:
+      - Validate=false
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true

@@ -1,0 +1,23 @@
+{{- if and .Values.api.enabled .Values.api.service.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "django.fullname" . }}-api-svc
+  namespace: {{ .Values.global.namespace }}
+  labels:
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    app.kubernetes.io/name: {{ template "django.fullname" . }}-api
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/version: {{ .Chart.AppVersion }}
+    app.kubernetes.io/component: api
+spec:
+  ports:
+  - port: {{ .Values.api.service.port }}
+    targetPort: {{ .Values.api.service.targetPort }}
+  selector:
+    app.kubernetes.io/name: {{ template "django.fullname" . }}-api
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+    app.kubernetes.io/component: api
+{{- end }}

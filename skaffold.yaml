@@ -1,0 +1,29 @@
+apiVersion: skaffold/v2beta29
+kind: Config
+metadata:
+  name: configHelm
+deploy:
+  helm:
+    releases:
+      # ArgoCD
+      - name: argocd
+        remoteChart: argo-cd
+        repo: https://argoproj.github.io/argo-helm
+        namespace: argocd
+        version: 5.43.7
+        createNamespace: true
+        valuesFiles:
+          - "./argocd/config/values.yaml"
+        upgradeOnChange: false
+
+# apiVersion: skaffold/v2beta29
+# kind: Config
+# requires:
+#   - configs: [configHelm]
+# metadata:
+#   name: configArgoApplication
+# deploy:
+#   kubectl:  
+#     manifests:
+#       - k8s/argocd/applications/craftech-app.yaml
+#       - k8s/argocd/config/repo-secret.yaml
