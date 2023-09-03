@@ -37,7 +37,7 @@ react:
     # extraEnvironmentVars is a list of extra enviroment variables to set with the stateful set. These could be
     # used to include variables required for auto-unseal.
     extraEnvironmentVars: 
-      REACT_APP_API_SERVER: http://craftech-app-backend.com.ar/api/
+      REACT_APP_API_SERVER: http://backend-api-svc.app-backend.svc.cluster.local/api/
       REACT_APP_BASE_URL: /app/dashboard/default
       REACT_APP_BASE_TITLE: Craftech App 1
       
@@ -75,8 +75,7 @@ react:
         # traffic: external
       annotations: {}
       hosts:
-        - host: craftech-app.com.ar
-          paths:
+        - paths:
             - path: /
 
 

@@ -28,13 +28,13 @@ spec:
           - name: VALUES
             value: "frontend-values.yaml"
           - name: CHART_VERSION
-            value: 0.1.0
-          - name: CHART_REPOSITORY_URL
-            value: https://helm.github.io/examples
-          - name: CHART_REPOSITORY
-            value: examples
-          - name: CHART_NAME
-            value: hello-world
+            value: 0.0.1
+        - name: CHART_REPOSITORY_URL
+          value: http://chartmuseum.chartmuseum.svc.cluster.local
+        - name: CHART_REPOSITORY
+          value: nerdearla
+        - name: CHART_NAME
+          value: frontend
           - name: PROJECT_NAME
             value: app-frontend-{{branch}}
         repoURL: https://github.com/craftech-inc/nerdearla-2023-dynamic-environments.git

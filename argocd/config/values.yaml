@@ -1880,7 +1880,7 @@ server:
     ## Hostnames must be provided if Ingress is enabled.
     ## Secrets must be manually created in the namespace
     hosts:
-      - argocd-nerdearla-demo.io
+      - argocd.demo.io
 
     # -- List of ingress paths
     paths:

@@ -15,15 +15,26 @@ deploy:
         valuesFiles:
           - "./argocd/config/values.yaml"
         upgradeOnChange: false
+      # ChartMuseum
+      - name: chartmuseum
+        remoteChart: chartmuseum
+        repo: https://chartmuseum.github.io/charts
+        namespace: chartmuseum
+        version: 3.10.1
+        createNamespace: true
+        valuesFiles:
+          - "./chartmuseum/values.yaml"
+        upgradeOnChange: false
 
-# apiVersion: skaffold/v2beta29
-# kind: Config
-# requires:
-#   - configs: [configHelm]
-# metadata:
-#   name: configArgoApplication
-# deploy:
-#   kubectl:  
-#     manifests:
-#       - k8s/argocd/applications/craftech-app.yaml
-#       - k8s/argocd/config/repo-secret.yaml
+apiVersion: skaffold/v2beta29
+kind: Config
+requires:
+  - configs: [configHelm]
+metadata:
+  name: configArgoApplication
+deploy:
+  kubectl:  
+    manifests:
+      - argocd/config/plugin.yaml
+      - argocd/applications/dynamic-envs/
+      - argocd/applications/stable-envs/      
