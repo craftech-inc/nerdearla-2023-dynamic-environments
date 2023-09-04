@@ -1,6 +1,0 @@
-dependencies:
-- name: react
-  repository: file://../react
-  version: 0.0.1
-digest: sha256:3baaaae9ba14da063941d8977f59b7143554f8c7537e9bfa832e0395d62b7f0d
-generated: "2023-08-30T09:01:51.028549878-03:00"

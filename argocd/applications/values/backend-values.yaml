@@ -17,7 +17,7 @@ global:
 
   # True if external secrets should be used
   externalSecrets:
-    enabled: true
+    enabled: false
 
 django:
   api:

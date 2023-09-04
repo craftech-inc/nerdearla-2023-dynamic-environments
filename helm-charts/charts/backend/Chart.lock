@@ -1,9 +1,0 @@
-dependencies:
-- name: django
-  repository: file://../django
-  version: 0.0.1
-- name: postgresql
-  repository: https://cetic.github.io/helm-charts
-  version: 0.2.3
-digest: sha256:df685e05e7add9509b614f5b5a3e53f6d76fa3041181d32741dae419085601ec
-generated: "2023-08-30T08:54:09.377976848-03:00"

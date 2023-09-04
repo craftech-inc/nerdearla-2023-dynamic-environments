@@ -13,20 +13,18 @@ spec:
     path: argocd/applications/values
     plugin:
       env:
-      - name: USE_OCI
-        value: "false"
       - name: VALUES
         value: "frontend-values.yaml"
       - name: CHART_VERSION
         value: 0.0.1
       - name: CHART_REPOSITORY_URL
-        value: http://chartmuseum.chartmuseum.svc.cluster.local
+        value: http://chartmuseum.chartmuseum.svc.cluster.local:8080
       - name: CHART_REPOSITORY
         value: nerdearla
       - name: CHART_NAME
-        value: frontend
+        value: frontend-demo
       - name: PROJECT_NAME
-        value: app-backend
+        value: app-frontend
     repoURL: https://github.com/craftech-inc/nerdearla-2023-dynamic-environments.git
     targetRevision: chore_argocd-configuration
   syncPolicy:

@@ -80,7 +80,7 @@ react:
 
 
       tls:
-        enabled: true
+        enabled: false
 
     # Enables a headless service to be used by
     service:

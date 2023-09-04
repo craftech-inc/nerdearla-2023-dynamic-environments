@@ -1,5 +1,16 @@
 apiVersion: skaffold/v2beta29
 kind: Config
+# requires:
+#   - configs: [configHelm]
+metadata:
+  name: configArgoPlugin
+deploy:
+  kubectl:  
+    manifests:
+      - argocd/config/plugin.yaml
+---
+apiVersion: skaffold/v2beta29
+kind: Config
 metadata:
   name: configHelm
 deploy:
@@ -10,22 +21,22 @@ deploy:
         remoteChart: argo-cd
         repo: https://argoproj.github.io/argo-helm
         namespace: argocd
-        version: 5.43.7
+        version: 5.37.0
         createNamespace: true
         valuesFiles:
           - "./argocd/config/values.yaml"
         upgradeOnChange: false
       # ChartMuseum
-      - name: chartmuseum
-        remoteChart: chartmuseum
-        repo: https://chartmuseum.github.io/charts
-        namespace: chartmuseum
-        version: 3.10.1
-        createNamespace: true
-        valuesFiles:
-          - "./chartmuseum/values.yaml"
-        upgradeOnChange: false
-
+      # - name: chartmuseum
+      #   remoteChart: chartmuseum
+      #   repo: https://chartmuseum.github.io/charts
+      #   namespace: chartmuseum
+      #   version: 3.10.1
+      #   createNamespace: true
+      #   valuesFiles:
+      #     - "./chartmuseum/values.yaml"
+      #   upgradeOnChange: false
+---
 apiVersion: skaffold/v2beta29
 kind: Config
 requires:
@@ -35,6 +46,4 @@ metadata:
 deploy:
   kubectl:  
     manifests:
-      - argocd/config/plugin.yaml
-      - argocd/applications/dynamic-envs/
-      - argocd/applications/stable-envs/      
+      - argocd/applications/stable-envs/*
