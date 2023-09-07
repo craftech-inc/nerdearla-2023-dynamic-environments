@@ -50,15 +50,19 @@ django:
 
     
     # set this to the name of the secret created when externalSecrets is disabled
-    varsSecretName: backend-env
+    varsSecretName: ""
     # extraEnvironmentVars is a list of extra enviroment variables to set with the stateful set. These could be
     # used to include variables required for auto-unseal.
     extraEnvironmentVars: 
       DEBUG: "1"
       RUNSERVER_PORT: "8000"
-      SQL_ADDRESS: "backend-postgresql.backend.svc.cluster.local"
+      SQL_ADDRESS: "app-backend-postgresql.app-backend.svc.cluster.local"
       SQL_ENGINE: "django.db.backends.postgresql"
       SQL_PORT: "5432"
+      SQL_USER: "apiuser"
+      SQL_PASSWORD: "qwerty1234"
+      SQL_DATABASE: "apidb"  
+
     autoscaling:
       enabled: false
       minReplicas: 1

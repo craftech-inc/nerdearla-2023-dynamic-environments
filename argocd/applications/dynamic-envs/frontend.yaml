@@ -13,12 +13,12 @@ spec:
       requeueAfterSeconds: 1800
   template:
     metadata:
-      name: 'app-frontend-{{branch}}'
+      name: 'app-frontend-pr-{{number}}'
     spec:
       project: "default"
       destination:
         server: in-cluster
-        namespace: app-frontend-{{branch}}
+        namespace: app-frontend-pr-{{number}}
       source:
         path: argocd/applications/values
         plugin:
@@ -36,9 +36,9 @@ spec:
         - name: CHART_NAME
           value: frontend
           - name: PROJECT_NAME
-            value: app-frontend-{{branch}}
+            value: app-frontend-pr-{{number}}
         repoURL: https://github.com/craftech-inc/nerdearla-2023-dynamic-environments.git
-        targetRevision: main
+        targetRevision: chore_argocd-configuration
       syncPolicy:
         automated:
           selfHeal: false
