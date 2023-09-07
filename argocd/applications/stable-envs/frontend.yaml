@@ -13,6 +13,8 @@ spec:
     path: argocd/applications/values
     plugin:
       env:
+      - name: ADD_HELM_REPOSITORY
+        value: "true"
       - name: VALUES
         value: "frontend-values.yaml"
       - name: CHART_VERSION
