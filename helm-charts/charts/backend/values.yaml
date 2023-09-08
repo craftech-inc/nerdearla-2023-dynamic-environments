@@ -15,6 +15,9 @@ global:
   # Namespace where release will be deployed
   namespace: "backend"
 
+  # AccountID where the infrastructure will be deployed if 
+  accountId: "033545611835"
+
   # True if external secrets should be used
   externalSecrets:
     enabled: true
@@ -67,6 +70,8 @@ django:
       targetMemoryUtilizationPercentage: 50
     
     terminationGracePeriodSeconds: 300
+
+    serviceAccontName: files-craftech-neardearla
       
     ingress:
       enabled: true
@@ -166,3 +171,7 @@ postgresql:
     ## Storage Capacity for persistent volume
     size: 10Gi
     annotations: {}
+
+infra:
+  s3:
+    name: files-craftech-neardearla

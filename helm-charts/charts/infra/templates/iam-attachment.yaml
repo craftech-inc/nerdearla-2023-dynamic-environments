@@ -1,0 +1,10 @@
+apiVersion: iam.aws.upbound.io/v1beta1
+kind: RolePolicyAttachment
+metadata:
+  name: {{ .Values.s3.name }}
+spec:
+  forProvider:
+    policyArnRef:
+      name: {{ .Values.s3.name }}
+    roleRef:
+      name: {{ .Values.s3.name }}

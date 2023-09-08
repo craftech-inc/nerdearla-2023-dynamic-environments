@@ -1,6 +1,6 @@
 apiVersion: v2
 name: backend-demo
-version: 0.0.1
+version: 0.0.2
 Appversion: latest
 keywords:
   - django
@@ -9,8 +9,11 @@ description: >
   This Chart is to deploy backend/api proyect based on Django Helm chart.
 dependencies:
   - name: django
-    version: 0.0.1
+    version: 0.0.2
     repository: 'file://../django'
   - name: postgresql
     version: 0.2.3
     repository: https://cetic.github.io/helm-charts
+  - name: infra
+    version: 0.0.1
+    repository: 'file://../infra'
