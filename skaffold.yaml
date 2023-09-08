@@ -47,3 +47,35 @@ deploy:
   kubectl:  
     manifests:
       - argocd/applications/stable-envs/*
+# ---
+# apiVersion: skaffold/v2beta29
+# kind: Config
+# metadata:
+#   name: configCrossplane
+# deploy:
+#   helm:
+#     releases:
+#       # Crossplane
+#       - name: crossplane
+#         remoteChart: crossplane
+#         repo: https://charts.crossplane.io/stable
+#         namespace: crossplane-system
+#         version: 1.13.2
+#         createNamespace: true
+#         valuesFiles:
+#           - crossplane/values.yaml
+#         upgradeOnChange: false
+---
+apiVersion: skaffold/v2beta29
+kind: Config
+requires:
+  - configs: [configCrossplane]
+metadata:
+  name: configCrossplaneCredentials
+deploy:
+  kubectl:  
+    manifests:
+      - crossplane/aws-credentials.yaml
+      - crossplane/providerconfig.yaml
+      - crossplane/s3-provider.yaml
+      - crossplane/iam-provider.yaml

@@ -16,6 +16,9 @@ global:
   # Namespace where release will be deployed
   namespace: "django"
 
+  # AccountID where the infrastructure will be deployed if 
+  accountId: "033545611835"
+
   # True if external secrets should be used
   externalSecrets:
     enabled: true
@@ -138,4 +141,3 @@ api:
       readinessProbe:
         enabled: true
         path:
-        

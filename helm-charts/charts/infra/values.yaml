@@ -1,0 +1,18 @@
+global:
+  # enabled is the master enabled switch. Setting this to true or false
+  # will enable or disable all the components within this chart by default.
+  enabled: true 
+
+  # the ACCOUNT_ID where you will be deploying the related infrastructure
+  accountId: "022944614835"
+    
+  # Name of the cluster deployed to.
+  clusterName: "crossplane"
+  # Namespace where release will be deployed
+  namespace: "crossplane-system"
+
+s3:
+  # True if you want to enable api deployment.
+  enabled: true
+
+  name: files-craftech-nerdearla-demo

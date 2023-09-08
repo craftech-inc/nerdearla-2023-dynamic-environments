@@ -1,0 +1,7 @@
+apiVersion: v2
+name: infra
+version: 0.0.1
+Appversion: latest
+keywords:
+  - infra
+description: Helm Chart for deploying the related infrastructure for the backend over K8s using Crossplane.
