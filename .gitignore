@@ -4,3 +4,6 @@ helm-charts/charts/*/charts
 
 # IntelliJ files
 .idea/
+
+# AWS credentials
+aws-credentials.yaml
