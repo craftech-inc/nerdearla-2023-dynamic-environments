@@ -18,7 +18,7 @@ spec:
       - name: VALUES
         value: "backend-values.yaml"
       - name: CHART_VERSION
-        value: 0.0.1
+        value: 0.0.2
       - name: CHART_REPOSITORY_URL
         value: http://chartmuseum.chartmuseum.svc.cluster.local:8080
       - name: CHART_REPOSITORY
