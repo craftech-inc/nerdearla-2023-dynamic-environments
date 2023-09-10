@@ -3,11 +3,12 @@ kind: Config
 # requires:
 #   - configs: [configHelm]
 metadata:
-  name: configArgoPlugin
+  name: configArgoPluginAndAwsCredentials
 deploy:
   kubectl:  
     manifests:
       - argocd/config/plugin.yaml
+      - crossplane/aws-credentials.yaml
 ---
 apiVersion: skaffold/v2beta29
 kind: Config
@@ -47,6 +48,7 @@ deploy:
   kubectl:  
     manifests:
       - argocd/applications/stable-envs/*
+      - argocd/applications/dynamic-envs/*
 # ---
 # apiVersion: skaffold/v2beta29
 # kind: Config
@@ -71,18 +73,17 @@ kind: Config
 # requires:
 #   - configs: [configCrossplane]
 metadata:
-  name: configCrossplaneCredentials
+  name: configCrossplaneProviders
 deploy:
   kubectl:  
     manifests:
-      - crossplane/aws-credentials.yaml
       - crossplane/s3-provider.yaml
       - crossplane/iam-provider.yaml
 ---
 apiVersion: skaffold/v2beta29
 kind: Config
 requires:
-  - configs: [configCrossplaneCredentials]
+  - configs: [configCrossplaneProviders]
 metadata:
   name: configCrossplaneProviderConfig
 deploy:
