@@ -170,7 +170,7 @@ postgresql:
     ## Storage Capacity for persistent volume
     size: 10Gi
     annotations: {}
-    
+
 infra:
   s3:
     enabled: false

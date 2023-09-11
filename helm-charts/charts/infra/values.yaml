@@ -13,6 +13,5 @@ global:
 
 s3:
   # True if you want to enable api deployment.
-  enabled: true
-
+  enabled: false
   name: files-craftech-nerdearla-demo

@@ -174,4 +174,5 @@ postgresql:
 
 infra:
   s3:
+    enabled: false
     name: files-craftech-neardearla
