@@ -28,7 +28,7 @@ spec:
       - name: PROJECT_NAME
         value: app-frontend
     repoURL: https://github.com/craftech-inc/nerdearla-2023-dynamic-environments.git
-    targetRevision: chore_argocd-configuration
+    targetRevision: main
   syncPolicy:
     automated:
       selfHeal: false
