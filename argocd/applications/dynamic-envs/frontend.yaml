@@ -10,7 +10,7 @@ spec:
         owner: craftech-inc
         # The Github repository
         repo: nerdearla-2023-dynamic-environments
-      requeueAfterSeconds: 1800
+      requeueAfterSeconds: 30
   template:
     metadata:
       name: 'app-frontend-pr-{{number}}'
