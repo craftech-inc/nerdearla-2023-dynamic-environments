@@ -13,32 +13,32 @@ spec:
       requeueAfterSeconds: 1800
   template:
     metadata:
-      name: 'app-backend-{{branch}}'
+      name: 'app-backend-pr-{{number}}'
     spec:
       project: "default"
       destination:
-        server: in-cluster
-        namespace: app-backend-{{branch}}
+        name: in-cluster
+        namespace: app-backend-pr-{{number}}
       source:
         path: argocd/applications/values
         plugin:
           env:
-          - name: USE_OCI
+          - name: ADD_HELM_REPOSITORY
             value: "false"
           - name: VALUES
             value: "backend-values.yaml"
           - name: CHART_VERSION
-            value: 0.1.0
+            value: 0.0.2
           - name: CHART_REPOSITORY_URL
-            value: https://helm.github.io/examples
+            value: http://chartmuseum.chartmuseum.svc.cluster.local:8080
           - name: CHART_REPOSITORY
-            value: examples
+            value: nerdearla
           - name: CHART_NAME
-            value: hello-world
+            value: backend-demo
           - name: PROJECT_NAME
-            value: app-backend-{{branch}}
+            value: app-backend-pr-{{number}}
         repoURL: https://github.com/craftech-inc/nerdearla-2023-dynamic-environments.git
-        targetRevision: main
+        targetRevision: '{{branch}}'
       syncPolicy:
         automated:
           selfHeal: false

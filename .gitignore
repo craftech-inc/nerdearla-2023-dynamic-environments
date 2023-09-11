@@ -1,0 +1,9 @@
+Chart.lock
+helm-charts/charts/*/charts
+*.tgz
+
+# IntelliJ files
+.idea/
+
+# AWS credentials
+aws-credentials.yaml

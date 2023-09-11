@@ -13,22 +13,22 @@ spec:
     path: argocd/applications/values
     plugin:
       env:
-      - name: USE_OCI
-        value: "false"
+      - name: ADD_HELM_REPOSITORY
+        value: "true"
       - name: VALUES
         value: "frontend-values.yaml"
       - name: CHART_VERSION
-        value: 0.1.0
+        value: 0.0.1
       - name: CHART_REPOSITORY_URL
-        value: https://helm.github.io/examples
+        value: http://chartmuseum.chartmuseum.svc.cluster.local:8080
       - name: CHART_REPOSITORY
-        value: examples
+        value: nerdearla
       - name: CHART_NAME
-        value: hello-world
+        value: frontend-demo
       - name: PROJECT_NAME
         value: app-frontend
     repoURL: https://github.com/craftech-inc/nerdearla-2023-dynamic-environments.git
-    targetRevision: main
+    targetRevision: chore_argocd-configuration
   syncPolicy:
     automated:
       selfHeal: false

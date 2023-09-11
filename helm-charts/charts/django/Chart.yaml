@@ -1,6 +1,6 @@
 apiVersion: v2
 name: django
-version: 0.0.1
+version: 0.0.2
 Appversion: latest
 icon: https://static.djangoproject.com/img/icon-touch.e4872c4da341.png
 keywords:

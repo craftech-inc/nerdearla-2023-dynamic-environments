@@ -13,9 +13,10 @@ data:
       version: v1.0
       init:
         command: ["/bin/sh", "-c"]
-        args: ['if [ "$ARGOCD_ENV_USE_OCI" = "true" ];then aws ecr get-login-password --region us-east-1 | helm registry login --username AWS --password-stdin ${ARGOCD_ENV_AWS_ECR_REGISTRY_URL};else helm repo add $ARGOCD_ENV_CHART_REPOSITORY $ARGOCD_ENV_CHART_REPOSITORY_URL && helm repo update;fi']
+        args: ['if [ "$ARGOCD_ENV_ADD_HELM_REPOSITORY" = "true" ];then helm repo add $ARGOCD_ENV_CHART_REPOSITORY $ARGOCD_ENV_CHART_REPOSITORY_URL;fi;helm repo update']
       generate:
         command: ["/bin/sh", "-c"]
-        args: ['if [ "$ARGOCD_ENV_USE_OCI" = "true" ];then helm template ${ARGOCD_ENV_PROJECT_NAME} oci://${ARGOCD_ENV_AWS_ECR_REGISTRY_URL}/${ARGOCD_ENV_CHART_NAME} --version ${ARGOCD_ENV_CHART_VERSION} --include-crds -n ${ARGOCD_APP_NAMESPACE} --values ${ARGOCD_ENV_VALUES};else helm template $ARGOCD_ENV_PROJECT_NAME $ARGOCD_ENV_CHART_REPOSITORY/$ARGOCD_ENV_CHART_NAME --include-crds -n $ARGOCD_APP_NAMESPACE --values $ARGOCD_ENV_VALUES --version $ARGOCD_ENV_CHART_VERSION;fi']
+        args: ['helm template $ARGOCD_ENV_PROJECT_NAME $ARGOCD_ENV_CHART_REPOSITORY/$ARGOCD_ENV_CHART_NAME --include-crds --values $ARGOCD_ENV_VALUES --version $ARGOCD_ENV_CHART_VERSION --set global.namespace=$ARGOCD_APP_NAMESPACE']
       discover:
-        fileName: "values*.yaml"
+        fileName: "*values.yaml"
+

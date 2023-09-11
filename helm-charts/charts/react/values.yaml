@@ -71,8 +71,7 @@ frontend:
       # traffic: external
     annotations: {}
     hosts:
-      - host: frontend.demo.io
-        paths:
+      - paths:
           - /
 
     tls:

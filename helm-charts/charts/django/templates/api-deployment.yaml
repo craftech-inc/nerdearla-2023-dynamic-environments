@@ -34,6 +34,7 @@ spec:
       {{ template "api.nodeselector" . }}
       {{ template "api.hostAliases" . }}
       terminationGracePeriodSeconds: {{ .Values.api.terminationGracePeriodSeconds | default 300 }}
+      serviceAccountName: {{ .Values.api.serviceAccontName }}
       containers:
         - name: django
           image: {{ .Values.global.image.repository }}:{{ .Values.global.image.tag }}
@@ -47,12 +48,10 @@ spec:
             periodSeconds: 5
             successThreshold: 1
           {{ template "api.resources" . }}
+          {{- if .Values.api.varsSecretName }}
           envFrom:
           - secretRef:
-          {{- if .Values.global.externalSecrets.enabled }}
-              name: {{ .Release.Name }}-api
-          {{ else }}
-              name: {{ .Values.api.varsSecretName | default "null" | quote }}
+              name: {{ .Values.api.varsSecretName }}
           {{- end }}
           env:
           {{- include "api.extraEnvironmentVars" .Values.api | nindent 10 }}
