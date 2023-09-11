@@ -71,6 +71,8 @@ django:
       targetMemoryUtilizationPercentage: 50
     
     terminationGracePeriodSeconds: 300
+
+    serviceAccontName: ""
       
     ingress:
       enabled: true
