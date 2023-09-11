@@ -1,3 +1,4 @@
+{{- if .Values.s3.enabled }}
 apiVersion: iam.aws.upbound.io/v1beta1
 kind: RolePolicyAttachment
 metadata:
@@ -8,3 +9,4 @@ spec:
       name: {{ .Values.s3.name }}
     roleRef:
       name: {{ .Values.s3.name }}
+{{- end }}

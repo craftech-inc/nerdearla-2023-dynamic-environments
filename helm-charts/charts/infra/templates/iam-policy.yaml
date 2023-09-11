@@ -1,3 +1,4 @@
+{{- if .Values.s3.enabled }}
 apiVersion: iam.aws.upbound.io/v1beta1
 kind: Policy
 metadata:
@@ -34,3 +35,4 @@ spec:
             }
             ]
         }
+{{- end }}

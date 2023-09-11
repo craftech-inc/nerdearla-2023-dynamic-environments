@@ -1,3 +1,4 @@
+{{- if .Values.s3.enabled }}
 apiVersion: s3.aws.upbound.io/v1beta1
 kind: Bucket
 metadata:
@@ -7,3 +8,4 @@ spec:
     region: us-east-2
   providerConfigRef:
     name: default
+{{- end }}
