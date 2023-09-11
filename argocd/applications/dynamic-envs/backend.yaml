@@ -2,6 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: app-backend-dynamic-envs
+  namespace: argocd
 spec:
   generators:
   - pullRequest:
@@ -42,6 +43,7 @@ spec:
       syncPolicy:
         automated:
           selfHeal: false
+          prune: true
         syncOptions:
           - Validate=false
           - CreateNamespace=true
