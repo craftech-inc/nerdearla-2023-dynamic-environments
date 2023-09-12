@@ -73,7 +73,7 @@ django:
     terminationGracePeriodSeconds: 300
 
     serviceAccontName: ""
-      
+    
     ingress:
       enabled: true
       ingressClassName: ""
@@ -176,4 +176,4 @@ postgresql:
 infra:
   s3:
     enabled: false
-    name: files-craftech-neardearla
+    name: files-craftech-nerdearla
