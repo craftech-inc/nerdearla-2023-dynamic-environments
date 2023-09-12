@@ -70,8 +70,6 @@ django:
       targetMemoryUtilizationPercentage: 50
     
     terminationGracePeriodSeconds: 300
-
-    serviceAccontName: files-craftech-neardearla
       
     ingress:
       enabled: true

@@ -2,7 +2,7 @@
 apiVersion: iam.aws.upbound.io/v1beta1
 kind: Policy
 metadata:
-  name: {{ .Values.s3.name }}
+  name: {{ .Values.s3.name }}-{{ $.Release.Name }}
 spec:
   forProvider:
     policy: |
@@ -16,7 +16,7 @@ spec:
                     "s3:GetBucketLocation"
                 ],
                 "Resource": [
-                    "arn:aws:s3:::{{ .Values.s3.name }}"
+                    "arn:aws:s3:::{{ .Values.s3.name }}-{{ $.Release.Name }}"
                 ]
             },
             {
@@ -30,7 +30,7 @@ spec:
                     "s3:PutObjectTagging"
                 ],
                 "Resource": [
-                    "arn:aws:s3:::{{ .Values.s3.name }}/*"
+                    "arn:aws:s3:::{{ .Values.s3.name }}-{{ $.Release.Name }}/*"
                 ]
             }
             ]

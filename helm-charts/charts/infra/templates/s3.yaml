@@ -2,7 +2,7 @@
 apiVersion: s3.aws.upbound.io/v1beta1
 kind: Bucket
 metadata:
-  name: {{ .Values.s3.name }}
+  name: {{ .Values.s3.name }}-{{ $.Release.Name }}
 spec:
   forProvider:
     region: us-east-2
